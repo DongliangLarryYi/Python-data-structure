@@ -2,14 +2,11 @@
 
 from sys import stdin
 
-
 # Splay tree implementation
-
 # Vertex of a splay tree
 class Vertex:
     def __init__(self, key, sum, left, right, parent):
         (self.key, self.sum, self.left, self.right, self.parent) = (key, sum, left, right, parent)
-
 
 def update(v):
     if v == None:
@@ -19,7 +16,6 @@ def update(v):
         v.left.parent = v
     if v.right != None:
         v.right.parent = v
-
 
 def smallRotation(v):
     parent = v.parent
@@ -43,7 +39,6 @@ def smallRotation(v):
         else:
             grandparent.right = v
 
-
 def bigRotation(v):
     if v.parent.left == v and v.parent.parent.left == v.parent:
         # Zig-zig
@@ -58,7 +53,6 @@ def bigRotation(v):
         smallRotation(v)
         smallRotation(v)
 
-
 # Makes splay of the given vertex and makes
 # it the new root.
 def splay(v):
@@ -70,7 +64,6 @@ def splay(v):
             break
         bigRotation(v)
     return v
-
 
 # Searches for the given key in the tree with the given root
 # and calls splay for the deepest visited node after that.
@@ -97,7 +90,6 @@ def find(root, key):
     root = splay(last)
     return (next, root)
 
-
 def split(root, key):
     (result, root) = find(root, key)
     if result == None:
@@ -111,7 +103,6 @@ def split(root, key):
     update(right)
     return (left, right)
 
-
 def merge(left, right): # the left is smaller than all elements in right (assumption)
     if left == None:
         return right
@@ -124,12 +115,8 @@ def merge(left, right): # the left is smaller than all elements in right (assump
     update(right)
     return right
 
-
 # Code that uses splay tree to solve the problem
-
 root = None
-
-
 def insert(x):
     global root
     (left, right) = split(root, x)
@@ -137,14 +124,10 @@ def insert(x):
     if right == None or right.key != x:
         new_vertex = Vertex(x, x, None, None, None)
     root = merge(merge(left, new_vertex), right)
-
-
 def erase(x):
     global root
-
     # find the x
     (left, right) = split(root, x)
-
     # check wheter x is in the tree
     if right == None or right.key != x:
         #print(left.key)
@@ -152,17 +135,12 @@ def erase(x):
         return
     else:
         root = merge(left, right.right)
-
         if root != None:
             root.parent = None
         #print('left equal')
 
-
-
-
 def search(x):
     global root
-
     # find the key
     (result, root) = find(root, x)
     if root == None or root.key != x:
@@ -170,22 +148,17 @@ def search(x):
     else:
         return True
 
-
 def sum(fr, to):
     global root
     (left, middle) = split(root, fr)
     (middle, right) = split(middle, to + 1)
-
     if middle != None:
         ans = middle.sum
     else:
         ans = 0
     # Complete the implementation of sum
-
     root = merge(left, merge(middle, right))
-
     return ans
-
 
 MODULO = 1000000001
 n = int(stdin.readline())
@@ -201,7 +174,6 @@ for i in range(n):
     elif line[0] == '?':
         x = int(line[1])
         #print("                    %s %d" %(line[0], x))
-
         print('Found' if search((x + last_sum_result) % MODULO) else 'Not found')
     elif line[0] == 's':
         l = int(line[1])
