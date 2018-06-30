@@ -1,5 +1,13 @@
+# Find pattern in text with implementation of the Rabin–Karp’s algorithm.
 # python3
-
+"""
+Sample 1.
+Input:
+aba
+abacaba
+Output:
+0 4
+"""
 
 class TextSearch:
 
@@ -16,8 +24,7 @@ class TextSearch:
 
     def precompute_hashes(self):
         """Precomputes hash values for the whole possible pattern entries
-        in the text.
-        """
+        in the text."""
         self._checksums = [self.checksum(self._text[:self._window])]
 
         for i in range(1, self._scan_bound):
@@ -39,7 +46,6 @@ class TextSearch:
                 if self._pattern == self._text[i:i + self._window]:
                     results.append(i)
         return results
-
 
 if __name__ == "__main__":
     pattern, text = input().rstrip(), input().rstrip()
