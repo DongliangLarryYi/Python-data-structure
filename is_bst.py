@@ -26,7 +26,7 @@ sys.setrecursionlimit(10**7) # max depth of recursion
 threading.stack_size(2**25)  # new thread will get stack of such size
 
 class TreeOrders:
-    
+    # read and store tree data
     def read(self):
         self.n = int(sys.stdin.readline())
         self.key = [0 for _ in range(self.n)]
