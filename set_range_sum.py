@@ -124,6 +124,7 @@ def find(root, key):
     root = splay(last)
     return (next, root)
 
+# Use split operation to cut ranges from the tree
 def split(root, key):
     (result, root) = find(root, key)
     if result == None:
@@ -137,6 +138,7 @@ def split(root, key):
     update(right)
     return (left, right)
 
+# merge the trees 
 def merge(left, right): # the left is smaller than all elements in right (assumption)
     if left == None:
         return right
