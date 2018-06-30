@@ -35,6 +35,7 @@ class TextSearch:
             ith_hash = old_hash - left_l_hash + right_l_hash
             self._checksums.append(ith_hash)
 
+    # find and return the positions            
     def find(self):
         """Returns all occurrences of pattern in the text."""
         pattern_checksum = self.checksum(self._pattern)
